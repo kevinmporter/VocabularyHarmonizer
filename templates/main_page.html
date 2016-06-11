@@ -54,14 +54,14 @@
                     relationship: $('#relationship-input').val().trim()
                 };
                 $.ajax({
-                    url: termsListCreateURL,
+                    url: relationshipsListCreateURL,
                     type: 'POST',
                     data: data
                 })
                         .done(function(data) {
-                            $('#add-term-modal').closeModal();
+                            $('#add-relationship-modal').closeModal();
                             $.ajax({
-                                url: termsListCreateURL,
+                                url: relationshipsListCreateURL,
                                 type: 'GET'
                             })
                                     .done(function(data) {
