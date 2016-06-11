@@ -163,3 +163,11 @@ settings.ini
 local.py
 
 .idea/VocabularyHarmonizer.iml
+
+.idea/inspectionProfiles/profiles_settings.xml
+
+.idea/inspectionProfiles/Project_Default.xml
+
+*.pyc
+
+*.pyc
