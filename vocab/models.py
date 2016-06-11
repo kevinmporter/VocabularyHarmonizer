@@ -21,7 +21,7 @@ class Term(models.Model):
 
         @author Kevin Porter
         """
-        TermRelationshipTerm = apps.get_model(app_label='terms', model_name='termrelationshipterm')
+        TermRelationshipTerm = apps.get_model(app_label='vocab', model_name='termrelationshipterm')
         qs = TermRelationshipTerm.objects.filter(subject=self)
         return qs
 
@@ -32,14 +32,36 @@ class Term(models.Model):
 
         @author Kevin Porter
         """
-        TermRelationshipTerm = apps.get_model(app_label='terms', model_name='termrelationshipterm')
+        TermRelationshipTerm = apps.get_model(app_label='vocab', model_name='termrelationshipterm')
         qs = TermRelationshipTerm.objects.filter(object=self)
         return qs
+
+    def relationships(self, relationships=None):
+        """
+        A serializer function for retrieving or saving the relationships for a term.
+        :return: A list of all the primary relationships for this term.
+        """
+        if relationships:
+            TermRelationshipTerm = apps.get_model(app_label='vocab', model_name='termrelationshipterm')
+            Relationship = apps.get_model(app_label='vocab', model_name='relationship')
+            for relationship in relationships:
+                try:
+                    r = Relationship.objects.get(relationship=relationship['relationship'])
+                except Relationship.DoesNotExist:
+                    raise Exception('Relationships must be manually added to the dictionary.')
+                try:
+                    o = Term.objects.get(term=relationship['object'])
+                except Term.DoesNotExist:
+                    raise Exception('Object vocab must be manually added to the dictionary.')
+                TermRelationshipTerm.objects.get_or_create(subject=self, predicate=r, object=o)
+        from .serializers import TripleSerializer
+        rels = self.get_primary_relationships()
+        return TripleSerializer(rels, many=True).data
 
 
 class Relationship(models.Model):
     """
-    A relationship between terms. (e.g., synonymous_to, similar_to, related_to, etc.)
+    A relationship between vocab. (e.g., synonymous_to, similar_to, related_to, etc.)
     @author Kevin Porter
     """
     relationship = models.CharField(max_length=255, unique=True)
@@ -48,7 +70,7 @@ class Relationship(models.Model):
         return self.relationship
 
     def get_triples(self):
-        TermRelationshipTerm = apps.get_model(app_label='terms', model_name='termrelationshipterm')
+        TermRelationshipTerm = apps.get_model(app_label='vocab', model_name='termrelationshipterm')
         qs = TermRelationshipTerm.objects.filter(predicate=self)
         return qs
 
