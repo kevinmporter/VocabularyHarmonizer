@@ -17,6 +17,13 @@ class Term(models.Model):
     def __str__(self):
         return self.term
 
+    def license_url(self):
+        if self.license:
+            url = self.license.url
+        else:
+            url = '#'
+        return url
+
     def get_primary_relationships(self):
         """
         Provides all triples for which this term is a subject.

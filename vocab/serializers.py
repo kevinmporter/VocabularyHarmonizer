@@ -1,8 +1,11 @@
 from rest_framework import serializers
+from common.models import License
 from .models import Term, Relationship, TermRelationshipTerm
 
 
 class TermSerializer(serializers.ModelSerializer):
+    license = serializers.SlugRelatedField(slug_field='name',
+                                           queryset=License.objects.all())
 
     def create(self, validated_data):
         term = super(TermSerializer, self).create(validated_data)
@@ -18,7 +21,7 @@ class TermSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Term
-        fields = ('term', 'relationships', 'description', )
+        fields = ('term', 'relationships', 'description', 'license', 'license_url', )
 
 
 class RelationshipSerializer(serializers.ModelSerializer):

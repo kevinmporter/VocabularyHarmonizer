@@ -3,6 +3,7 @@ from rest_framework import generics
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
 from rest_framework import status
+from common.models import License
 from .models import Term, Relationship, TermRelationshipTerm
 from .serializers import TermSerializer, RelationshipSerializer
 
@@ -34,6 +35,7 @@ class MainPageView(generics.RetrieveAPIView):
         params = {
             'terms': Term.objects.all(),
             'relationships': Relationship.objects.all(),
+            'licenses': License.objects.all(),
         }
         return Response(params, template_name='vocab/main_page.html',
                         status=status.HTTP_200_OK)
