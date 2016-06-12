@@ -12,7 +12,7 @@
                 if (!$.inArray($(this).val().trim(), terms)) {
                     document.getElementById('term-input').setCustomValidity('Not valid');
                 } else {
-                                        document.getElementById('term-input').setCustomValidity('');
+                    document.getElementById('term-input').setCustomValidity('');
 
                 }
             });
@@ -20,14 +20,15 @@
                 if (!$.inArray($(this).val().trim(), relationships)) {
                     document.getElementById('relationship-input').setCustomValidity('Not valid');
                 } else {
-                                        document.getElementById('relationship-input').setCustomValidity('');
+                    document.getElementById('relationship-input').setCustomValidity('');
 
                 }
             });
-            $('#submit-add-term-btn').on('click', function(e) {
+            $('#add-term-form').on('submit', function(e) {
                 e.preventDefault();
                 var data = {
-                    term: $('#term-input').val().trim()
+                    term: $('#term-input').val().trim(),
+                    description: $('#term-description-input').val()
                 };
                 $.ajax({
                     url: termsListCreateURL,
@@ -42,8 +43,10 @@
                             })
                                     .done(function(data) {
                                         terms = [];
+                                        var termsTable = $('#terms-table tbody');
                                         $.each(data, function(k, v) {
                                             terms.push(v.term);
+                                            termsTable.append('<tr><td>' + v.term + '</td><td>' + v.description + '</td></tr>');
                                         });
                                     });
                         });
@@ -66,8 +69,10 @@
                             })
                                     .done(function(data) {
                                         relationships = [];
+                                        var relationshipsTable = $('#relationships-table tbody');
                                         $.each(data, function(k, v) {
                                             relationships.push(v.relationship);
+                                            relationshipsTable.append('<tr><td>' + v.relationship + '</td><td>' + v.description + '</td></tr>');
                                         });
                                     });
                         });
@@ -77,6 +82,30 @@
 {% endblock %}
 
 {% block content %}
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <ul class="collapsible" data-collapsible="accordion" id="terms-table">
+                {% for term in terms %}
+                <li>
+                <div class="collapsible-header">{{ term.term }}</div>
+                <div class="collapsible-body">{{ term.description }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s10 offset-s1">
+            <ul class="collapsible" data-collapsible="accordion" id="relationships-table">
+                {% for relationship in relationships %}
+                <li>
+                <div class="collapsible-header">{{ relationship.relationship }}</div>
+                <div class="collapsible-body">{{ relationship.description }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
         <a class="btn-floating btn-large red">
             <i class="large material-icons">add</i>
@@ -89,19 +118,29 @@
     <div id="add-term-modal" class="modal">
         <div class="modal-content">
             <h4>Add Term</h4>
-            <div class="row">
-                <div class="col s8 offset-s2">
-                    <div class="input-field">
-                        <input placeholder="Term" id="term-input" type="text" class="validate" maxlength="255">
-                        <label for="term-input">Term</label>
+            <form id="add-term-form">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="input-field">
+                            <input placeholder="Term" id="term-input" type="text" class="validate" maxlength="255" required>
+                            <label for="term-input">Term</label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col s2 offset-s8">
-                    <button type="button" class="waves-effect waves-light btn" id="submit-add-term-btn">Submit</button>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="input-field">
+                            <textarea class="materialize-textarea validate" id="term-description-input" maxlength="2048" placeholder="Description" required></textarea>
+                            <label for="term-description-input">Description</label>
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col s2 offset-s10">
+                        <button type="submit" class="waves-effect waves-light btn" id="submit-add-term-btn">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div id="add-relationship-modal" class="modal">
@@ -111,7 +150,7 @@
                 <div class="col s8 offset-s2">
                     <div class="input-field">
                         <input placeholder="Relationship" id="relationship-input" type="text" class="validate" maxlength="255">
-                        <label for="relatinship-input">Relationship</label>
+                        <label for="relationship-input">Relationship</label>
                     </div>
                 </div>
             </div>

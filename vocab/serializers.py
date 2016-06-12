@@ -18,14 +18,14 @@ class TermSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Term
-        fields = ('term', 'relationships', )
+        fields = ('term', 'relationships', 'description', )
 
 
 class RelationshipSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Relationship
-        fields = ('relationship', )
+        fields = ('relationship', 'description', )
 
 
 class TripleSerializer(serializers.ModelSerializer):

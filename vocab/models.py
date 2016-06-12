@@ -10,6 +10,7 @@ class Term(models.Model):
     @author Kevin Porter
     """
     term = models.CharField(max_length=255, unique=True)
+    description = models.CharField(max_length=2048)
 
     def __str__(self):
         return self.term
@@ -65,6 +66,7 @@ class Relationship(models.Model):
     @author Kevin Porter
     """
     relationship = models.CharField(max_length=255, unique=True)
+    description = models.CharField(max_length=2048)
 
     def __str__(self):
         return self.relationship

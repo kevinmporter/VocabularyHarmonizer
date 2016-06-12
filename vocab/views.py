@@ -32,7 +32,7 @@ class MainPageView(generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
         params = {
-            'vocab': Term.objects.all(),
+            'terms': Term.objects.all(),
             'relationships': Relationship.objects.all(),
         }
         return Response(params, template_name='main_page.html',
@@ -44,7 +44,7 @@ class AddRelationshipFormView(generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
         params = {
-            'vocab': Term.objects.all(),
+            'terms': Term.objects.all(),
             'relationships': Relationship.objects.all(),
         }
         return Response(params, template_name='vocab/add_term.html',
