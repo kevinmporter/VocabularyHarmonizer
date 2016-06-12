@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from vocab.views import MainPageView
+from common.views import AboutView, MainView
 
 urlpatterns = [
-    url(r'^$', MainPageView.as_view(), name='main_page'),
     url(r'^admin/', admin.site.urls),
     url(r'^vocab/', include('vocab.urls', namespace='vocab')),
+    url(r'^about/', AboutView.as_view(), name='about'),
+    url(r'^$', MainView.as_view(), name='main'),
 ]

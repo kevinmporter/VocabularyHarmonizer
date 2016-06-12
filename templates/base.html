@@ -15,20 +15,34 @@
     {% endblock %}
 </head>
 <body>
-<div class="navbar-fixed">
-    <nav>
-        <div class="nav-wrapper blue lighten-2">
-            <a href="#!" class="brand-logo">VocabularyHarmonizer</a>
-            <ul class="right hide-on-med-and-down">
-                <li><a id="nav-add-term" href="//{{ request.get_host }}{% url 'vocab:terms:add_term_form' %}">Add Term</a></li>
-            </ul>
-        </div>
-    </nav>
-</div>
+{% block navbar %}
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper teal lighten-1">
+                <a href="//{{ request.get_host }}{% url 'main' %}" class="brand-logo">VocabularyHarmonizer</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a id="nav-about" href="//{{ request.get_host }}{% url 'about' %}">About</a></li>
+                    <li><a id="nav-vocab-main" href="//{{ request.get_host }}{% url 'vocab:main_page' %}">Vocabulary</a></li>
+                    <li><a id="nav-vocab-graph" href="//{{ request.get_host }}{% url 'vocab:vocab_graph' %}">VocabGraph</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+{% endblock %}
 <div class="container">
     {% block content %}
 
     {% endblock %}
+
 </div>
+{% block footer %}
+    <footer class="page-footer teal lighten-1">
+        <div class="footer-copyright">
+            <div class="container">
+                Unless otherwise noted, all content on this website is licensed under a <a class="grey-text text-lighten-5" rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+            </div>
+        </div>
+    </footer>
+{% endblock %}
 </body>
 </html>

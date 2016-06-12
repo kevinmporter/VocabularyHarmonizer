@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.apps import apps
+from common.models import License
 
 
 class Term(models.Model):
@@ -11,6 +12,7 @@ class Term(models.Model):
     """
     term = models.CharField(max_length=255, unique=True)
     description = models.CharField(max_length=2048)
+    license = models.ForeignKey(License, blank=True, null=True)
 
     def __str__(self):
         return self.term
@@ -67,6 +69,7 @@ class Relationship(models.Model):
     """
     relationship = models.CharField(max_length=255, unique=True)
     description = models.CharField(max_length=2048)
+    license = models.ForeignKey(License, blank=True, null=True)
 
     def __str__(self):
         return self.relationship

@@ -35,7 +35,19 @@ class MainPageView(generics.RetrieveAPIView):
             'terms': Term.objects.all(),
             'relationships': Relationship.objects.all(),
         }
-        return Response(params, template_name='main_page.html',
+        return Response(params, template_name='vocab/main_page.html',
+                        status=status.HTTP_200_OK)
+
+
+class VocabGraphView(generics.RetrieveAPIView):
+    renderer_classes = (TemplateHTMLRenderer, )
+
+    def get(self, request, *args, **kwargs):
+        params = {
+            'terms': Term.objects.all(),
+            'relationships': Relationship.objects.all(),
+        }
+        return Response(params, template_name='vocab/vocab_graph.html',
                         status=status.HTTP_200_OK)
 
 

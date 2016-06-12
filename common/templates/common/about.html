@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#nav-about').parent().addClass('active');
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col s12">
+            <h4>Project</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <p>Some words here about the project.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h4>Acknowledgments</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <p>Some people who were involved.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <h4>Contact</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <p>Some ways to complain.</p>
+        </div>
+    </div>
+{% endblock %}

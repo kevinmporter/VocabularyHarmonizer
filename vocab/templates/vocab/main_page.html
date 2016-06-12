@@ -7,6 +7,7 @@
         var terms = [{% for term in terms %}'{{ term.term }}',{% endfor %}];
         var relationships = [{% for relationship in relationships %}'{{ relationship.relationship }}',{% endfor %}]
         $(document).ready(function() {
+            $('#nav-vocab-main').parent().addClass('active');
             $('.modal-trigger').leanModal();
             $('#term-input').on('change', function(e) {
                 if (!$.inArray($(this).val().trim(), terms)) {
@@ -84,24 +85,48 @@
 {% block content %}
     <div class="row">
         <div class="col s10 offset-s1">
+            <h4>Terms</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s10 offset-s1">
             <ul class="collapsible" data-collapsible="accordion" id="terms-table">
                 {% for term in terms %}
-                <li>
-                <div class="collapsible-header">{{ term.term }}</div>
-                <div class="collapsible-body">{{ term.description }}</div>
-                </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">assignment</i>{{ term.term }}</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <p>{{ term.description }}</p>
+                            </div>
+                            <div class="row">
+                                <div class="col s3 offset-s6">
+                                    <button class="waves-effect waves-light btn right" type="button"><i class="material-icons left">mode_edit</i>Edit</button>
+                                </div>
+                                <div class="col s3">
+                                    <button class="waves-effect waves-light btn" type="button"><i class="material-icons left">equalizer</i>Visualize</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
     <div class="row">
         <div class="col s10 offset-s1">
+            <h4>Relationships</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s10 offset-s1">
             <ul class="collapsible" data-collapsible="accordion" id="relationships-table">
                 {% for relationship in relationships %}
-                <li>
-                <div class="collapsible-header">{{ relationship.relationship }}</div>
-                <div class="collapsible-body">{{ relationship.description }}</div>
-                </li>
+                    <li>
+                        <div class="collapsible-header"><i class="material-icons">library_books</i>{{ relationship.relationship }}</div>
+                        <div class="collapsible-body">
+                                <p>{{ relationship.description }}</p>
+                        </div>
+                    </li>
                 {% endfor %}
             </ul>
         </div>

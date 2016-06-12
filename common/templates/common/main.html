@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block scripts %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('body').addClass('cyan darken-4');
+            $('div.container').removeClass('container');
+            $('.card-panel').on('click', function(e) {
+                e.preventDefault();
+                window.location = $(this).data('link');
+            });
+        });
+    </script>
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block content %}
+    <div class="row teal lighten-1 z-depth-2">
+        <div class="col s12">
+            <div class="row">
+                <div class="col s12">
+                    <h1 class="center-align white-text">VocabularyHarmonizer</h1>
+                </div>
+            </div>
+            <div class="row">
+                <p class="center-align white-text">A tool for bridging large and small vocabularies and aligning them for collaboration, development, and research.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4">
+            <div class="card-panel cyan accent-1 hoverable cursor-pointer" data-link="//{{ request.get_host }}{% url 'vocab:main_page' %}">
+                <span class="black-text">
+                    <h5>Vocabulary</h5>
+                    Some description of this section
+                </span>
+            </div>
+        </div>
+    <div class="col s4">
+            <div class="card-panel cyan accent-1 hoverable cursor-pointer" data-link="//{{ request.get_host }}{% url 'about' %}">
+                <span class="black-text">
+                    <h5>About</h5>
+                    Learn more about this project
+                </span>
+            </div>
+        </div>
+    <div class="col s4">
+            <div class="card-panel cyan accent-1 hoverable cursor-pointer" data-link="//{{ request.get_host }}{% url 'vocab:vocab_graph' %}">
+                <span class="black-text">
+                    <h5>Visualize</h5>
+                    See the graphics and stuff
+                </span>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

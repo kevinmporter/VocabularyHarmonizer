@@ -13,6 +13,8 @@ relationships = [
 ]
 
 urlpatterns = [
+    url(r'^$', views.MainPageView.as_view(), name='main_page'),
+    url(r'^graph/$', views.VocabGraphView.as_view(), name='vocab_graph'),
     url(r'^terms/', include(terms, namespace='terms')),
     url(r'^relationships/', include(relationships, namespace='relationships')),
 ]
