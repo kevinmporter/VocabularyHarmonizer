@@ -53,13 +53,18 @@ class VocabGraphView(generics.RetrieveAPIView):
                         status=status.HTTP_200_OK)
 
 
-class AddRelationshipFormView(generics.RetrieveAPIView):
+class EditTermView(generics.RetrieveAPIView):
     renderer_classes = (TemplateHTMLRenderer, )
 
     def get(self, request, *args, **kwargs):
+        term_id = request.query_params.get('id')
+        term = Term.objects.get(id=term_id)
         params = {
             'terms': Term.objects.all(),
             'relationships': Relationship.objects.all(),
+            'licenses': License.objects.all(),
+            'term': term,
+            'term_rels': term.get_primary_relationships(),
         }
-        return Response(params, template_name='vocab/add_term.html',
+        return Response(params, template_name='vocab/edit_term.html',
                         status=status.HTTP_200_OK)

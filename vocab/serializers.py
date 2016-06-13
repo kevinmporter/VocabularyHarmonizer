@@ -21,7 +21,7 @@ class TermSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Term
-        fields = ('term', 'relationships', 'description', 'license', 'license_url', )
+        fields = ('id', 'term', 'relationships', 'description', 'license', 'license_url', )
 
 
 class RelationshipSerializer(serializers.ModelSerializer):
