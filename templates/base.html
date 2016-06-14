@@ -10,39 +10,44 @@
     {% endblock %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/materialize.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/vocabulary_harmonizer.css' %}">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{% static 'css/material_icons.css' %}" rel="stylesheet">
     {% block styles %}
     {% endblock %}
 </head>
 <body class="blue-grey lighten-4">
-{% block navbar %}
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper blue-grey">
-                <a href="//{{ request.get_host }}{% url 'main' %}" class="brand-logo">VocabularyHarmonizer</a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a id="nav-about" href="//{{ request.get_host }}{% url 'about' %}">About</a></li>
-                    <li><a id="nav-vocab-main" href="//{{ request.get_host }}{% url 'vocab:main_page' %}">Vocabulary</a></li>
-                    <li><a id="nav-vocab-graph" href="//{{ request.get_host }}{% url 'vocab:vocab_graph' %}">VocabGraph</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-{% endblock %}
-<div class="container">
-    {% block content %}
-
-    {% endblock %}
-
-</div>
-{% block footer %}
-    <footer class="page-footer teal lighten-1">
-        <div class="footer-copyright">
-            <div class="container">
-                Unless otherwise noted, all content on this website is licensed under a <a class="grey-text text-lighten-5" rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
-            </div>
+<header>
+    {% block navbar %}
+        <div class="navbar-fixed">
+            <nav>
+                <div class="nav-wrapper cyan darken-3">
+                    <a href="//{{ request.get_host }}{% url 'main' %}" class="brand-logo">VocabularyHarmonizer</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a id="nav-about" href="//{{ request.get_host }}{% url 'about' %}">About</a></li>
+                        <li><a id="nav-vocab-main" href="//{{ request.get_host }}{% url 'vocab:main_page' %}">Vocabulary</a></li>
+                        <li><a id="nav-vocab-graph" href="//{{ request.get_host }}{% url 'vocab:vocab_graph' %}">VocabGraph</a></li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-    </footer>
-{% endblock %}
+    {% endblock %}
+</header>
+<main>
+    <div class="container">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</main>
+<footer>
+    {% block footer %}
+        <footer class="page-footer cyan darken-3">
+            <div class="footer-copyright">
+                <div class="container">
+                    Unless otherwise noted, all content on this website is licensed under a <a class="grey-text text-lighten-5" rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
+                </div>
+            </div>
+        </footer>
+    {% endblock %}
+</footer>
 </body>
 </html>

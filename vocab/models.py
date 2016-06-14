@@ -2,7 +2,23 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.apps import apps
+from django.contrib.auth.models import Group
 from common.models import License
+
+
+class Domain(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    group = models.ForeignKey(Group, default=1)
+
+    def __str__(self):
+        return self.name
+
+    def create(self, *args, **kwargs):
+        try:
+            g = Group.objects.get(name=self.name)
+        except Group.DoesNotExist:
+            g = Group.objects.create(name=self.name)
+        return super(Domain, self).create(group=g, *args, **kwargs)
 
 
 class Term(models.Model):
@@ -13,6 +29,7 @@ class Term(models.Model):
     term = models.CharField(max_length=255, unique=True)
     description = models.CharField(max_length=2048)
     license = models.ForeignKey(License, blank=True, null=True)
+    domain = models.ForeignKey(Domain)
 
     def __str__(self):
         return self.term
