@@ -14,11 +14,11 @@
     {% block styles %}
     {% endblock %}
 </head>
-<body>
+<body class="blue-grey lighten-4">
 {% block navbar %}
     <div class="navbar-fixed">
         <nav>
-            <div class="nav-wrapper teal lighten-1">
+            <div class="nav-wrapper blue-grey">
                 <a href="//{{ request.get_host }}{% url 'main' %}" class="brand-logo">VocabularyHarmonizer</a>
                 <ul class="right hide-on-med-and-down">
                     <li><a id="nav-about" href="//{{ request.get_host }}{% url 'about' %}">About</a></li>
